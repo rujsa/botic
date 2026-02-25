@@ -22,11 +22,10 @@ def discover_market():
     url = "https://gamma-api.polymarket.com/markets?limit=100&closed=false"
     r = requests.get(url, timeout=5)
     markets = r.json()
-
-    # 👇 DEBUG IDE OVDE
+    
     print("Markets returned:", len(markets))
-    for m in markets[:5]:
-        print(m.get("question"))
+for m in markets[:5]:
+    print(m.get("question"))
 
     for m in markets:
         question = m.get("question", "").lower()
