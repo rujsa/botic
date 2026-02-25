@@ -29,7 +29,7 @@ def discover_market():
         print(m.get("question"))
 
     for m in markets:
-    question = m.get("question", "").lower()
+        question = m.get("question", "").lower()
 
     if (
         ("bitcoin up or down" in question or "btc" in question)
