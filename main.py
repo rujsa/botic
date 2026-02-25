@@ -29,16 +29,19 @@ def discover_market():
         print(m.get("question"))
 
     for m in markets:
-        question = m.get("question", "").lower()
+    question = m.get("question", "").lower()
 
-        if "bitcoin" in question:
-            prices = m.get("outcomePrices")
+    if (
+        ("bitcoin up or down" in question or "btc" in question)
+        and ("5 minute" in question or "5 minutes" in question)
+    ):
+        prices = m.get("outcomePrices")
 
-            if prices and len(prices) >= 2:
-                yes_price = float(prices[0])
-                return m["slug"], yes_price
+        if prices and len(prices) >= 2:
+            yes_price = float(prices[0])
+            return m["slug"], yes_price
 
-    return None, None
+return None, None
 
 def place_trade(slug, side, amount):
     headers = {"Authorization": f"Bearer {SIMMER_API_KEY}"}
