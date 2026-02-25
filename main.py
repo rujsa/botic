@@ -26,10 +26,10 @@ def discover_market():
     for m in markets:
         question = m.get("question", "").lower()
 
-        if "bitcoin" in question and ("up" in question or "down" in question):
+        if "bitcoin" in question:
             prices = m.get("outcomePrices")
 
-            if prices:
+            if prices and len(prices) >= 2:
                 yes_price = float(prices[0])
                 return m["slug"], yes_price
 
