@@ -19,15 +19,19 @@ def get_binance_momentum():
     return price_now
 
 def discover_market():
-    url = "https://gamma-api.polymarket.com/markets?limit=5&closed=false"
+    url = "https://gamma-api.polymarket.com/markets?limit=100&closed=false"
     r = requests.get(url, timeout=5)
     markets = r.json()
 
     for m in markets:
-        if "Bitcoin Up or Down" in m.get("question", ""):
+        question = m.get("question", "").lower()
+
+        if "bitcoin" in question and ("up" in question or "down" in question):
             prices = m.get("outcomePrices")
-            yes_price = float(prices[0])
-            return m["slug"], yes_price
+
+            if prices:
+                yes_price = float(prices[0])
+                return m["slug"], yes_price
 
     return None, None
 
